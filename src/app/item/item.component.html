@@ -1,0 +1,15 @@
+<div class="d-flex flex-column" [ngClass]="{'border-left': withBorder}">
+  <div class="d-flex">
+    <button
+        *ngIf="data.type === folder; else file"
+        [ngClass]="{'opened': isOpened, 'closed': !isOpened}"
+        [disabled]="!data?.children?.length"
+        (click)="toggle()">{{data.name}} ({{data?.children?.length}})</button>
+    <ng-template #file>
+      <p class="m-0">{{data.name}}</p>
+    </ng-template>
+  </div>
+  <ng-container *ngIf="data.children && isOpened">
+    <item *ngFor="let child of data.children" [data]="child"></item>
+  </ng-container>
+</div>
